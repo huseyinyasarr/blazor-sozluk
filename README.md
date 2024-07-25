@@ -1,4 +1,4 @@
-<h1 style="color:#00008b;">BlazorSozluk</h1>
+<h1 style="color:darkblue;">BlazorSozluk</h1>
 Bu proje, staj dönemimde üzerinde çalıştığım ve yazılım geliştirme yeteneklerimi geliştirdiğim bir projedir. Proje, Entity Framework (EF) ile veri tabanı işlemlerini, Blazor ile kullanıcı arayüzü geliştirmeyi ve Onion Architecture ile katmanlı bir mimari kullanarak kodun daha düzenli ve sürdürülebilir olmasını amaçlamaktadır.
 
 <h3 style="color:darkblue;">Entity Framework</h3>
