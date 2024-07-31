@@ -25,7 +25,7 @@ internal class SeedData
                 .RuleFor(i => i.Password, i => PasswordEncryptor.Encrpt(i.Internet.Password()))
                 .RuleFor(i => i.EmailAddress, i => i.Internet.Email())
                 .RuleFor(i => i.EmailConfirmed, i => i.PickRandom(true, false))
-            .Generate(3);
+            .Generate(50);
 
 
         return result;
@@ -37,6 +37,12 @@ internal class SeedData
         dbContextBuilder.UseSqlServer(configuration["BlazorSozlukDbConnectionString"]);
 
         var context = new BlazorSozlukContext(dbContextBuilder.Options); //Dışarıdan blazor context'i set etmemizi sağlar
+
+        if (context.Users.Any()) //eğer kullanıcı varsa bloğa girer. Yeni veriler eklememesini sağlar
+        {
+            await Task.CompletedTask;
+            return;
+        }
 
         var users = GetUsers();
         var userIds = users.Select(i => i.Id);
@@ -53,7 +59,7 @@ internal class SeedData
                     .RuleFor(i => i.Subject, i => i.Lorem.Sentence(5, 5))
                     .RuleFor(i => i.Content, i => i.Lorem.Paragraph(3))
                     .RuleFor(i => i.CreatedById, i => i.PickRandom(userIds))
-                .Generate(5);
+                .Generate(100);
 
         await context.Entrys.AddRangeAsync(entries);
 
@@ -65,7 +71,7 @@ internal class SeedData
                 .RuleFor(i => i.Content, i => i.Lorem.Paragraph(2))
                 .RuleFor(i => i.CreatedById, i => i.PickRandom(userIds))
                 .RuleFor(i => i.EntryId, entry.Id)
-            .Generate(10);
+            .Generate(150);
 
             await context.EntryComments.AddRangeAsync(comments);
         }

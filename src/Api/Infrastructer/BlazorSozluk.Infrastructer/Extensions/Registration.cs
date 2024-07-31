@@ -1,4 +1,6 @@
-﻿using BlazorSozluk.Infrastructer.Persistence.Context;
+﻿using BlazorSozluk.Application;
+using BlazorSozluk.Infrastructer.Persistence.Context;
+using BlazorSozluk.Infrastructer.Persistence.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,10 +26,15 @@ public static class Registration
         });
 
 
-        //Tekrar tekrar data üretmesin diye yorum satırına alındı
+        //Tekrar tekrar data üretmesin diye yorum satırına alınabilir ama SeedData class'ındaki if(context.Users.Any) bloğu bu durumu kontrol idiyor
 
         var seedData = new SeedData();
         seedData.SeedAsync(configuration).GetAwaiter().GetResult();
+
+        //services.AddScoped<IUserRepository, IUserRepository>();
+
+        services.AddScoped<IUserRepository, UserRepository>();
+
 
         return services;
     }

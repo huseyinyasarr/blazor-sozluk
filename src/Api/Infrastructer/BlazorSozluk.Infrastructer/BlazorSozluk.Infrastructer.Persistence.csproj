@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\BlazorSozluk.Api.Domain\BlazorSozluk.Api.Domain.csproj" />
+    <ProjectReference Include="..\..\Core\BlazorSozluk.Application\BlazorSozluk.Application.csproj" />
   </ItemGroup>
 
 </Project>
