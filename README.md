@@ -8,8 +8,5 @@ Veri tabanı işlemleri için kullanılan güçlü bir ORM aracıdır. Bu projed
 Kullanıcı arayüzü geliştirmek için kullanılan bir framework'tür. Blazor ile modern, interaktif ve dinamik web uygulamaları oluşturulabilir.
 
 <h3 style="color:darkblue;">Onion Architecture</h3>
-<<<<<<< HEAD
 Kodun daha modüler, sürdürülebilir ve test edilebilir olmasını sağlamak için kullanılan bir mimari desendir. Bu projede, farklı katmanlar arasında net ayrımlar yaparak kodun yönetimini kolaylaştırmak ve bağımlılıkları azaltmak amacıyla Onion Architecture kullanılmıştır.
-=======
-Kodun daha modüler, sürdürülebilir ve test edilebilir olmasını sağlamak için kullanılan bir mimari desendir. Bu projede, farklı katmanlar arasında net ayrımlar yaparak kodun yönetimini kolaylaştırmak ve bağımlılıkları azaltmak amacıyla Onion Architecture kullanılmıştır.
->>>>>>> f671c44f585b53bfe72fd79bdc2c44fc6073698a
+
