@@ -1,4 +1,4 @@
-﻿using BlazorSozluk.Common.Models.ReauestModels;
+﻿using BlazorSozluk.Common.Models.RequestModels;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorSozluk.Application.Features.Commands.User
+namespace BlazorSozluk.Application.Features.Commands.User.Login
 {
     public class LoginUserCommandValidator : AbstractValidator<LoginUserCommand>
     {
-        public LoginUserCommandValidator() 
+        public LoginUserCommandValidator()
         {
             RuleFor(i => i.EmailAddress)
                 .NotNull()
@@ -19,7 +19,7 @@ namespace BlazorSozluk.Application.Features.Commands.User
 
             RuleFor(i => i.Password)
                 .NotNull()
-                .MinimumLength(6).WithMessage("{PropertyName} en az {MinLenght} karakter olmalı");
+                .MinimumLength(6).WithMessage("{PropertyName} en az {MinLength} karakter olmalı");
         }
     }
 }

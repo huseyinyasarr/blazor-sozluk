@@ -2,7 +2,7 @@
 using BlazorSozluk.Common.Infrastructer;
 using BlazorSozluk.Common.Infrastructer.Exceptions;
 using BlazorSozluk.Common.Models.Queries;
-using BlazorSozluk.Common.Models.ReauestModels;
+using BlazorSozluk.Common.Models.RequestModels;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 
 
-namespace BlazorSozluk.Application.Features.Commands.User;
+namespace BlazorSozluk.Application.Features.Commands.User.Login;
 
 public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUserViewModel>
 {
@@ -33,19 +33,37 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUs
 
     public async Task<LoginUserViewModel> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
-        var dbUser = await userRepository.GetSingleAsync(i=> i.EmailAddress == request.EmailAddress);
+        var dbUser = await userRepository.GetSingleAsync(i => i.EmailAddress == request.EmailAddress);
 
-        if (dbUser == null) 
+        if (dbUser == null)
         {
             throw new DatabaseValidationException("Böyle bir kullanıcı yok!");
         }
 
         var pass = PasswordEncryptor.Encrpt(request.Password);
 
+
+        // password'ler, database'de md5 ile hash'lenerek saklanır. Bunun için login ekranında kullanıcının girdiği şifreyi hash'leyerek database'den gelen veri ile kıyaslamak gerekiyor.
+        //aşağıdaki blok, üstte yazıldığı gibi doğru olan yönteme göre çalışmakta ancak test için kullanıcı bilgilerini post ederken password bilgisinin hash'siz halini bilmiyoruz (veriler bogus tarafından otomatik olarak oluşturuldu)
         if (dbUser.Password != pass)
         {
             throw new DatabaseValidationException("Şifre hatalı");
         }
+
+
+        // kullınıcıdan gelen veriyi (yani test için postladığımız şifre) db'den manuel olarak aldığım hash'i tekrardan hash'leyip, ardından post'ladığım "pass" (üstteki satırda hash'leniyor) ile kıyaslıyorum. Bu blok tamamen test amaçlıdır
+        //if (PasswordEncryptor.Encrpt(dbUser.Password) != pass)
+        //{
+        //    throw new DatabaseValidationException("Şifre hatalı");
+        //}
+
+
+
+        // db'den gelen hash ile db'den test için aldığım hesh'in kıyaslaması
+        //if (dbUser.Password != "1F4372948CB5EFDEA04B1A855B69FED2")
+        //{
+        //    throw new DatabaseValidationException("Şifre hatalı");
+        //}
 
         if (!dbUser.EmailConfirmed)
         {
@@ -64,7 +82,7 @@ public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUs
 
         };
 
-        result.Token=GenerateToken(claims);
+        result.Token = GenerateToken(claims);
 
         return result;
 

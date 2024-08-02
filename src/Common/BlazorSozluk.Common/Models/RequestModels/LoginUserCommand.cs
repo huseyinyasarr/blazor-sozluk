@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorSozluk.Common.Models.ReauestModels
+namespace BlazorSozluk.Common.Models.RequestModels
 {
-    public class LoginUserCommand: IRequest<LoginUserViewModel>
+    public class LoginUserCommand : IRequest<LoginUserViewModel>
     {
         public string EmailAddress { get; set; }
 
@@ -18,10 +18,10 @@ namespace BlazorSozluk.Common.Models.ReauestModels
         {
             EmailAddress = emailAddress;
             Password = password;
-            
+
         }
 
-        public LoginUserCommand() 
+        public LoginUserCommand()
         {
         }
     }

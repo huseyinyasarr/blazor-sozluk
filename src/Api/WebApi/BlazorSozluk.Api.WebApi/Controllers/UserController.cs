@@ -1,4 +1,4 @@
-﻿using BlazorSozluk.Common.Models.ReauestModels;
+﻿using BlazorSozluk.Common.Models.RequestModels;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

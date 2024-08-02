@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BlazorSozluk.Common.Models.Queries;
 using System.Threading.Tasks;
+using BlazorSozluk.Common.Models.RequestModels;
 
 namespace BlazorSozluk.Api.Application.Mapping;
 public class MappingProfile : Profile
@@ -17,22 +18,22 @@ public class MappingProfile : Profile
         CreateMap<User, LoginUserViewModel>()
             .ReverseMap();
 
-        //CreateMap<CreateUserCommand, User>();
+        CreateMap<CreateUserCommand, User>();
 
-        //CreateMap<UpdateUserCommand, User>();
+        CreateMap<UpdateUserCommand, User>();
 
-        //CreateMap<UserDetailViewModel, User>()
-        //    .ReverseMap();
+        CreateMap<UserDetailViewModel, User>()
+            .ReverseMap();
 
-        //CreateMap<CreateEntryCommand, Entry>()
-        //    .ReverseMap();
+        CreateMap<CreateEntryCommand, Entry>()
+            .ReverseMap();
 
-        //CreateMap<Entry, GetEntriesViewModel>()
-        //    .ForMember(x => x.CommentCount, y => y.MapFrom(z => z.EntryComments.Count));
+        CreateMap<Entry, GetEntriesViewModel>()
+            .ForMember(x => x.CommentCount, y => y.MapFrom(z => z.EntryComments.Count));
 
 
-        //CreateMap<CreateEntryCommentCommand, EntryComment>()
-        //    .ReverseMap();
+        CreateMap<CreateEntryCommentCommand, EntryComment>()
+            .ReverseMap();
 
 
     }
