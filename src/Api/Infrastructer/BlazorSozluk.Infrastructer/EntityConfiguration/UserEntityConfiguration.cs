@@ -19,6 +19,10 @@ public class UserEntityConfiguration : BaseEntityConfiguration<User>
 
         builder.ToTable("user", BlazorSozlukContext.DEFAULT_SCHEMA);
 
+        builder.Property(e => e.CreatedDate)
+            .HasDefaultValueSql("getdate()");
+
+
         //builder.HasMany(x => x.Entries)
         //    .WithOne(x => x.CreatedBy)
         //    .HasForeignKey(x => x.CreatedById)

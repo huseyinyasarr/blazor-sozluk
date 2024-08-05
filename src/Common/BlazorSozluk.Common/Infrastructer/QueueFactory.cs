@@ -8,71 +8,86 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace BlazorSozluk.Common.Infrastructer
+namespace BlazorSozluk.Common.Infrastructer;
+
+public static class QueueFactory
 {
-    public static class QueueFactory
+    public static void SendMessageToExchange(string exchangeName,
+                                             string exchangeType,
+                                             string queueName,
+                                             object obj)
     {
-        public static void SendMessageToExchange(string exchangeName,
-                                                 string exchangeType,
-                                                 string queueName,
-                                                 object obj)
-        {
-            // RabbitMQ'ya mesaj gönderebilmek için 
+        var channel = CreateBasicConsumer()
+                        .EnsureExchange(exchangeName, exchangeType)
+                        .EnsureQueue(queueName, exchangeName)
+                        .Model;
 
-            //queue ve exchange oluşturulduğuna emin olmak için aşağıdakileri yazıyoruz
-            var channel = CreatBasicConsumer()
-                            .EnsureExchange(exchangeName, exchangeType)
-                            .EnsureQueue(queueName, queueName)
-                            .Model;
+        var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(obj));
 
-            //önce json'a sonra byte'a çevirmek için
-            var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(obj));
-
-            channel.BasicPublish(exchange: exchangeName,
+        channel.BasicPublish(exchange: exchangeName,
                              routingKey: queueName,
                              basicProperties: null,
                              body: body);
 
-        }
+    }
 
-        public static EventingBasicConsumer CreatBasicConsumer()
+    public static EventingBasicConsumer CreateBasicConsumer()
+    {
+        var factory = new ConnectionFactory() { HostName = SozlukConstants.RabbitMQHost };
+        var connection = factory.CreateConnection();
+        var channel = connection.CreateModel();
+
+        return new EventingBasicConsumer(channel);
+    }
+
+    public static EventingBasicConsumer EnsureExchange(this EventingBasicConsumer consumer,
+                                                       string exchangeName,
+                                                       string exchangeType = SozlukConstants.DefaultExchangeType)
+    {
+        consumer.Model.ExchangeDeclare(exchange: exchangeName,
+                                       type: exchangeType,
+                                       durable: false,
+                                       autoDelete: false);
+        return consumer;
+    }
+
+    public static EventingBasicConsumer EnsureQueue(this EventingBasicConsumer consumer,
+                                                       string queueName,
+                                                       string exchangeName)
+    {
+        consumer.Model.QueueDeclare(queue: queueName,
+                                    durable: false,
+                                    exclusive: false,
+                                    autoDelete: false,
+                                    null);
+
+        consumer.Model.QueueBind(queueName, exchangeName, queueName);
+
+        return consumer;
+    }
+
+    public static EventingBasicConsumer Receive<T>(this EventingBasicConsumer consumer, Action<T> act)
+    {
+        consumer.Received += (m, eventArgs) =>
         {
-            var factory = new ConnectionFactory() { HostName = SozlukConstants.RabbitMQHost };
-            var connection = factory.CreateConnection();
-            var channel = connection.CreateModel();
+            var body = eventArgs.Body.ToArray();
+            var message = Encoding.UTF8.GetString(body);
 
-            return new EventingBasicConsumer(channel);
+            var model = JsonSerializer.Deserialize<T>(message);
 
-        }
+            act(model);
+            consumer.Model.BasicAck(eventArgs.DeliveryTag, false);
+        };
 
-        public static EventingBasicConsumer EnsureExchange(this EventingBasicConsumer consumer,
-                                                           string exchangeName,
-                                                           string exchangeType = SozlukConstants.DefaultExchangeType)
-        {
-            consumer.Model.ExchangeDeclare(exchange: exchangeName,
-                                           type: exchangeType,
-                                           durable: false,
-                                           autoDelete: false);
-            return consumer;
-        }
+        return consumer;
+    }
 
-        public static EventingBasicConsumer EnsureQueue(this EventingBasicConsumer consumer,
-                                                           string queueName,
-                                                           string exchangeName)
-        {
-            consumer.Model.QueueDeclare(queue: queueName,
-                                        durable: false,
-                                        exclusive: false,
-                                        autoDelete: false,
-                                        null);
+    public static EventingBasicConsumer StartConsuming(this EventingBasicConsumer consumer, string queueName)
+    {
+        consumer.Model.BasicConsume(queue: queueName,
+                                    autoAck: false,
+                                    consumer: consumer);
 
-            consumer.Model.QueueBind(queueName, exchangeName, queueName);
-
-            return consumer;
-        }
-
-
-
-
+        return consumer;
     }
 }
