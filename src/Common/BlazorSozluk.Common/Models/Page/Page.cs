@@ -28,10 +28,10 @@ public class Page
     public Page(int currentPage, int pageSize, int totalRowCount)
     {
         if (currentPage < 1)
-            throw new ArgumentException("Invalid page number!");
+            throw new ArgumentException("Geçersiz sayfa numarası!");
 
         if (pageSize < 1)
-            throw new ArgumentException("Invalid page size!");
+            throw new ArgumentException("Geçersiz sayfa boyutu!");
 
         TotalRowCount = totalRowCount;
         CurrentPage = currentPage;

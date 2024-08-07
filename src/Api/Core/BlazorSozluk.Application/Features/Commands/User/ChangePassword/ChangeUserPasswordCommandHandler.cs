@@ -40,7 +40,8 @@ public class ChangeUserPasswordCommandHandler : IRequestHandler<ChangeUserPasswo
         {
             throw new DatabaseValidationException("Şifre hatalı");
         }
-        dbUser.Password = encPass;
+
+        dbUser.Password = PasswordEncryptor.Encrpt(request.NewPassword);
 
         await userRepository.UpdateAsync(dbUser);
 
