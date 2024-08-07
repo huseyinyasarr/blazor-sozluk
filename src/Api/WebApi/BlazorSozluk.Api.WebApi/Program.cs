@@ -1,3 +1,4 @@
+using BlazorSozluk.Api.WebApi.Infrastructure.Extensions;
 using BlazorSozluk.Application.Extensions;
 using BlazorSozluk.Infrastructer.Persistence.Extensions;
 using FluentValidation.AspNetCore;
@@ -46,6 +47,8 @@ builder.Services.AddSwaggerGen(c =>
         { schema, Array.Empty<string>() }
     });
 });
+
+builder.Services.ConfigureAuth(builder.Configuration);
 
 builder.Services.AddApplicationRegistration();
 builder.Services.AddInfrastructureRegistration(builder.Configuration);

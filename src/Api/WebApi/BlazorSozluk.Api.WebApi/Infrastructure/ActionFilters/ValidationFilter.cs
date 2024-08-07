@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace BlazorSozluk.Api.WebApi.Infrastructure.ActionFilters;
 
 public class ValidateModelStateFilter : IAsyncActionFilter
