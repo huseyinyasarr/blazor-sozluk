@@ -29,15 +29,15 @@ public class ConfirmEmailCommandHandler : IRequestHandler<ConfirmEmailCommand, b
         var confirmation = await emailConfirmationRepository.GetByIdAsync(request.ConfirmationId);
 
         if (confirmation is null)
-            throw new DatabaseValidationException("Confirmation not found!");
+            throw new DatabaseValidationException("Mail onaylanmadı!");
 
         var dbUser = await userRepository.GetSingleAsync(i => i.EmailAddress == confirmation.NewEmailAddress);
 
         if (dbUser is null)
-            throw new DatabaseValidationException("User not found with this email!");
+            throw new DatabaseValidationException("Bu mail adresine ait kullanıcı bulunamadı!");
 
         if (dbUser.EmailConfirmed)
-            throw new DatabaseValidationException("Email address is already confirmed!");
+            throw new DatabaseValidationException("Bu mail adresi zaten onaylandı!");
 
         dbUser.EmailConfirmed = true;
         await userRepository.UpdateAsync(dbUser);

@@ -30,7 +30,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
         var existsUser = await userRepository.GetSingleAsync(i => i.EmailAddress == request.EmailAddress);
 
         if (existsUser is not null)
-            throw new DatabaseValidationException("User already exists!");
+            throw new DatabaseValidationException("Bu kullanıcı zaten bulunuyor!");
 
         var dbUser = mapper.Map<BlazorSozluk.Api.Domain.Models.User>(request);
 

@@ -31,7 +31,7 @@ public class ChangeUserPasswordCommandHandler : IRequestHandler<ChangeUserPasswo
 
         if (dbUser is null)
         {
-            throw new DatabaseValidationException("User not found");
+            throw new DatabaseValidationException("Kullanıcı bulunamadı");
         }
 
 
