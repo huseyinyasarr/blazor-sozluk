@@ -20,7 +20,7 @@ public static class ApplicationBuilderExtension
 
                 if (!useDefaultHandlingResponse && handleException == null)
                     throw new ArgumentNullException(nameof(handleException),
-                        $"{nameof(handleException)} cannot be null when {nameof(useDefaultHandlingResponse)} is false");
+                        $"{nameof(useDefaultHandlingResponse)} false olduğunda {nameof(handleException)} null olamaz.");
 
                 if (!useDefaultHandlingResponse && handleException != null)
                     return handleException(context, exceptionObject.Error);
@@ -35,7 +35,7 @@ public static class ApplicationBuilderExtension
     private static async Task DefaultHandleException(HttpContext context, Exception exception, bool includeExceptionDetails)
     {
         HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
-        string message = "Internal server error occured!";
+        string message = "Sunucu Hatası";
 
         if (exception is UnauthorizedAccessException)
             statusCode = HttpStatusCode.Unauthorized;
