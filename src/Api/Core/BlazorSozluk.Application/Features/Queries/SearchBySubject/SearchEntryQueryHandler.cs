@@ -21,7 +21,6 @@ public class SearchEntryQueryHandler : IRequestHandler<SearchEntryQuery, List<Se
 
     public async Task<List<SearchEntryViewModel>> Handle(SearchEntryQuery request, CancellationToken cancellationToken)
     {
-        // TODO validation, request.SearchText length should be checked
 
         var result = entryRepository
             .Get(i => EF.Functions.Like(i.Subject, $"{request.SearchText}%"))
