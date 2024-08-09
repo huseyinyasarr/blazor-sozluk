@@ -1,9 +1,58 @@
-﻿@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase;
+@inject IEntryService entryService;
+
+
+<div class="navbar fixed-top text-white">
+
+    <div class="logo">
+        <a href="/" class="bg-white">
+            <img src="\Pix.png" alt="Alternate Text" style="width: 20%; height: auto;"/>
+        </a>
+    </div>
+
+    <div class="search-box">
+        <div class="form-outline">
+            <input type="search"
+                   class="form-control small"
+                   @bind-value="SearchText"
+                   @bind-value:event="oninput"
+                   @onkeypress="SearchKeyDown"
+                   @onfocusout="OnSearchFocusOut"
+                   placeholder="Sözlük içerisinde ara" />
+        </div>
+
+        <p>@SearchText</p>
+
+
+        <button type="button" class="btn btn-sozluk btn-success"
+                @onclick="OnSearchAsync"
+                @onfocusout="@OnSearchFocusOut">
+            <i class="fa fa-search h-75"></i>
+        </button>
+
+    </div>
+
+    <div>
+        @foreach (var item in Results)
+        {
+            <p>@item.Subject</p>
+        }
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
 
 <div class="page">
     <div class="sidebar">
         <h5 class"text-white text-center siderbar-heading">@EntriesSubject</h5>
-        
+
         <a href="more-data" @onclick="@RefreshEntries">refresh</a>
 
         <ul class="list-group">
@@ -14,7 +63,7 @@
     </div>
 
     <main>
-        
+
         <div class="top-row px-4">
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
         </div>
@@ -22,7 +71,7 @@
         <div class="content px-4">
             @Body
         </div>
-       
+
     </main>
 
 
@@ -31,14 +80,51 @@
 
 
 
-@code 
+@code
 {
     public string EntriesSubject { get; set; } = "bugün";
 
     private EntriesComponent entriesComponent;
 
+    public string SearchText { get; set; }
+    private bool showSearchResult;
+    public List<SearchEntryViewModel> Results { get; set; } = new List<SearchEntryViewModel>();
+
     private async Task RefreshEntries()
     {
         await entriesComponent.RefreshList();
     }
+
+    private async Task SearchKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            await Search();
+        }
+    }
+
+    private async Task Search()
+    {
+        if (string.IsNullOrEmpty(SearchText))
+            return;
+
+        Results = await entryService.SearchBySubject(SearchText);
+
+        // Results = true;
+
+        SearchText = string.Empty;
+    }
+
+    public async Task OnSearchAsync()
+    {
+        await Search();
+    }
+
+    private async Task OnSearchFocusOut()
+    {
+        await Task.Delay(100);
+        if (showSearchResult)
+            showSearchResult = false;
+    }
+
 }
