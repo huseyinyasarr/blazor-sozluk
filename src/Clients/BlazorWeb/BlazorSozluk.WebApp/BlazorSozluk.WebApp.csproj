@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Layout\NavMenu.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Layout\NavMenu.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\Pix.png" />
   </ItemGroup>
 

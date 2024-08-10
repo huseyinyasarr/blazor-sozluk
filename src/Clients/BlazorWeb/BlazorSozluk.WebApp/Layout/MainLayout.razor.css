@@ -124,8 +124,8 @@ a.more-data:hover {
     margin-bottom: 10px;
     padding-top: 5px;
     -webkit-overflow-scrolling: touch;
-    z-index: 1
-    /*background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
+    z-index: 1;
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
 }
 
     .sidebar::-webkit-scrollbar-track {

@@ -21,7 +21,7 @@ public class EntryService : IEntryService
     public async Task<List<GetEntriesViewModel>> GetEntires()
     {
         var client = httpClientFactory.CreateClient(ClientName);
-        var result = await client.GetFromJsonAsync<List<GetEntriesViewModel>>("/api/entry?todaysEnties=false&count=30");
+        var result = await client.GetFromJsonAsync<List<GetEntriesViewModel>>("/api/entry?isEnties=false&count=30");
 
         return result;
     }
