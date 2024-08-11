@@ -100,6 +100,17 @@
 
 
 <div class="page">
+    <div class="sidebar">
+        <h5 class"text-white text-center siderbar-heading">@EntriesSubject</h5>
+
+        <a href="more-data" @onclick="@RefreshEntries">refresh</a>
+
+        <ul class="list-group">
+            <EntriesComponent @ref="entriesComponent" />
+        </ul>
+
+
+    </div>
 
     <main>
 
@@ -112,18 +123,6 @@
         </div>
 
     </main>
-
-    <div class="sidebar">
-        <h5 class"text-white text-center siderbar-heading">@EntriesSubject</h5>
-
-        <a href="more-data" @onclick="@RefreshEntries">refresh</a>
-
-        <ul class="list-group">
-            <EntriesComponent @ref="entriesComponent" />
-        </ul>
-
-
-    </div>
 
 
 </div>
