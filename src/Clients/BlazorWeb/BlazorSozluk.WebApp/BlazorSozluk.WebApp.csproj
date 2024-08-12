@@ -11,10 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Layout\NavMenu.razor.css" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Include="wwwroot\css\MainLayout.css" />
     <None Include="wwwroot\Pix.png" />
   </ItemGroup>
 

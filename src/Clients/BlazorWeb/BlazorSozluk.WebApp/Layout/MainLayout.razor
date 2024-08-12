@@ -2,13 +2,13 @@
 @* @inject IEntryService entryService; *@
 
 
+
 <div class="navbar fixed-top text-white">
 
-    <div class="logo">
-        <a href="/" class="bg-white">
-            <img src="\Pix.png" alt="Alternate Text" style="width: 20%; height: auto;" />
-        </a>
-    </div>
+    
+            <img src="\Pix.png" alt="Alternate Text" class="logo" />
+        
+    
 
     <div class="search-box">
         <div class="form-outline">
@@ -19,16 +19,16 @@
                    @onkeypress="@SearchKeyDown"
                    @onfocusout="@OnSearchFocusOut"
                    placeholder="Sözlük içerisinde ara" />
+
+            <button type="button" class="btn btn-sozluk btn-success"
+                    @onclick="@OnSearchAsync"
+                    @onfocusout="@OnSearchFocusOut">
+                <i class="fa fa-search h-75"></i>
+            </button>
         </div>
 
-        <p>@SearchText</p>
 
-
-        <button type="button" class="btn btn-sozluk btn-success"
-                @onclick="@OnSearchAsync"
-                @onfocusout="@OnSearchFocusOut">
-            <i class="fa fa-search h-75"></i>
-        </button>
+        
 
         @if (showSearchResult)
         {
@@ -48,7 +48,7 @@
     </div>
 
 
-    @* <AuthorizeView>
+    @*  <AuthorizeView>
         <Authorized>
             <div class="top-nav">
                 <input type="button" class="form-control btn-success btn-sozluk w-auto" value="Create Entry" @onclick="@NavigateCreateEntryPage" />
@@ -64,7 +64,7 @@
             </div>
         </NotAuthorized>
 
-    </AuthorizeView> *@
+    </AuthorizeView>  *@
 
 
 
@@ -82,56 +82,64 @@
     </div>
 
 
-    <div>
-        @foreach (var item in Results)
-        {
-            <p>@item.Subject</p>
-        }
-    </div>
+ 
 
 
 
 </div>
 
-
-
-
-
-
-
 <div class="page">
     <div class="sidebar">
-        <h5 class"text-white text-center siderbar-heading">@EntriesSubject</h5>
 
-        <a href="more-data" @onclick="@RefreshEntries">refresh</a>
+        <h5 class="text-white text-center siderbar-heading">@EntriesSubject</h5>
+        <a class="more-data" @onclick="@RefreshEntries">refresh</a>
 
         <ul class="list-group">
-            <EntriesComponent @ref="entriesComponent" />
+            <EntriesComponent @ref="@entriesComponent" />
         </ul>
-
 
     </div>
 
     <main>
-
         <div class="top-row px-4">
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
         </div>
 
-        <div class="content px-4">
+        <article class="content px-4">
             @Body
-        </div>
-
+        </article>
     </main>
-
-
 </div>
+
+
 
 
 
 
 @code
 {
+    [Inject]
+    IEntryService entryService { get; set; }
+
+    List<GetEntriesViewModel> entries = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshList();
+    }
+
+
+    public async Task RefreshList()
+    {
+        entries = await entryService.GetEntires();
+
+        StateHasChanged();
+    }
+
+
+
+
+
     public string EntriesSubject { get; set; } = "bugün";
 
     private EntriesComponent entriesComponent;
@@ -143,8 +151,8 @@
     [Inject]
     NavigationManager navigationManager { get; set; }
 
-    [Inject]
-    IEntryService entryService { get; set; }
+    // [Inject]
+    // IEntryService entryService { get; set; }
 
     private async Task RefreshEntries()
     {
