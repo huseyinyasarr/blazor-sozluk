@@ -1,13 +1,6 @@
-﻿using BlazorSozluk.Api.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using AutoMapper;
+﻿using AutoMapper;
+using BlazorSozluk.Api.Domain.Models;
 using BlazorSozluk.Common.Models.Queries;
-using System.Threading.Tasks;
 using BlazorSozluk.Common.Models.RequestModels;
 
 namespace BlazorSozluk.Api.Application.Mapping;

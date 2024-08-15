@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlazorSozluk.Api.WebApi.Controllers;
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
+
 public class UserController : BaseController
 {
     private readonly IMediator mediator;
@@ -39,6 +41,7 @@ public class UserController : BaseController
 
 
     [HttpPost]
+    [AllowAnonymous]
     [Route("Login")]
     public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
     {

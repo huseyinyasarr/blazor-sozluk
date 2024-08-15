@@ -15,6 +15,7 @@ namespace BlazorSozluk.Api.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+
 public class EntryController : BaseController
 {
     private readonly IMediator mediator;

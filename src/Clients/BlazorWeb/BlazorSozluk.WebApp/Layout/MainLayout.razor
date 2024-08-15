@@ -5,9 +5,13 @@
 
 <div class="navbar fixed-top text-white">
 
-    
-            <img src="\Pix.png" alt="Alternate Text" class="logo" />
-        
+    <div class="logo">
+
+        <a href="/" class="bg-white">
+            <img height="50" src="css/Images/logo.png" />
+        </a>
+
+    </div>
     
 
     <div class="search-box">
@@ -48,7 +52,7 @@
     </div>
 
 
-    @*  <AuthorizeView>
+     <AuthorizeView>
         <Authorized>
             <div class="top-nav">
                 <input type="button" class="form-control btn-success btn-sozluk w-auto" value="Create Entry" @onclick="@NavigateCreateEntryPage" />
@@ -64,7 +68,7 @@
             </div>
         </NotAuthorized>
 
-    </AuthorizeView>  *@
+    </AuthorizeView> 
 
 
 
@@ -100,15 +104,7 @@
 
     </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+   @Body
 </div>
 
 

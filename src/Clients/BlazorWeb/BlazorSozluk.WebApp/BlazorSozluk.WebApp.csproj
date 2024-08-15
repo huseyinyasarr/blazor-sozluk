@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\css\MainLayout.css" />
-    <None Include="wwwroot\Pix.png" />
+    <None Include="wwwroot\css\Images\logo.png" />
   </ItemGroup>
 
   <ItemGroup>
