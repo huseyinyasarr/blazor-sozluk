@@ -7,10 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Layout\NavMenu.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Layout\NavMenu.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Layout\NavMenu.razor" />
     <None Include="wwwroot\css\MainLayout.css" />
     <None Include="wwwroot\css\Images\logo.png" />
   </ItemGroup>
@@ -27,6 +32,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\BlazorSozluk.Common\BlazorSozluk.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Layout\NavMenu.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Layout\NavMenu.razor" />
   </ItemGroup>
 
 </Project>
