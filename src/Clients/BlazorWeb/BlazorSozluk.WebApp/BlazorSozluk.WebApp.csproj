@@ -17,6 +17,10 @@
   <ItemGroup>
     <None Include="Layout\NavMenu.razor" />
     <None Include="wwwroot\css\MainLayout.css" />
+
+	  <None Include="wwwroot\css\app.css" />
+
+	  <None Include="wwwroot\css\NavMenu.css" />
     <None Include="wwwroot\css\Images\logo.png" />
   </ItemGroup>
 
