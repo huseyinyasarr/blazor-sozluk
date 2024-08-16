@@ -18,15 +18,18 @@ public class EntryEntityConfiguration : BaseEntityConfiguration<Api.Domain.Model
 
         builder.ToTable("entry", BlazorSozlukContext.DEFAULT_SCHEMA);
 
-        //builder.HasOne(e => e.CreatedBy)
-        //    .WithOne()
-        //    .HasForeignKey<Api.Domain.Models.Entry>(x => x.CreatedById)
-        //    .IsRequired();
+        builder.HasOne(e => e.CreatedBy)
+            .WithOne()
+            .HasForeignKey<Api.Domain.Models.Entry>(x => x.CreatedById)
+            .IsRequired();
+
+        builder.Property(e => e.CreatedDate)
+    .HasDefaultValueSql("getdate()");
 
         builder.HasMany(x => x.EntryVotes)
             .WithOne(x => x.Entry)
             .HasForeignKey(x => x.EntryId)
-            .IsRequired();        
+            .IsRequired();
 
     }
 }
