@@ -10,7 +10,7 @@ public static class AuthRegistration
     public static IServiceCollection ConfigureAuth(this IServiceCollection services, IConfiguration configuration)
     {
         //var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Jwt:SigningKey"]));
-        var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["AuthConfig:Secret"]));
+        var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AuthConfig:Secret"]));
 
         services.AddAuthentication(options =>
         {
