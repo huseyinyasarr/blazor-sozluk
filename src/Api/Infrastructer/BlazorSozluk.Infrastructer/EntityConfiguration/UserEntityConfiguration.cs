@@ -23,10 +23,11 @@ public class UserEntityConfiguration : BaseEntityConfiguration<User>
             .HasDefaultValueSql("getdate()");
 
 
-        //builder.HasMany(x => x.Entries)
-        //    .WithOne(x => x.CreatedBy)
-        //    .HasForeignKey(x => x.CreatedById)
-        //    .IsRequired();
+
+        //builder.hasmany(x => x.entries)
+        //    .withone(x => x.createdby)
+        //    .hasforeignkey(x => x.createdbyıd)
+        //    .ısrequired();
 
         //builder.HasMany(x => x.EntryVotes)
         //    .WithOne(x => x.CreatedBy)
