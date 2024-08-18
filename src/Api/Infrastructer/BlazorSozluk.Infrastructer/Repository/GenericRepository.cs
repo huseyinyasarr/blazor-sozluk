@@ -213,7 +213,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     {
         TEntity found = await entity.FindAsync(id);
 
-        if (found != null)
+        if (found == null)
         {
             return null;
         }

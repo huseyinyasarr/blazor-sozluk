@@ -30,8 +30,11 @@ public class GetUserDetailQueryHandler : IRequestHandler<GetUserDetailQuery, Use
         else if (!string.IsNullOrEmpty(request.UserName))
             dbUser = await userRepository.GetSingleAsync(i => i.UserName == request.UserName);
 
-        // TODO if both are empty, throw new exception
+       
 
         return mapper.Map<UserDetailViewModel>(dbUser);
     }
 }
+
+
+

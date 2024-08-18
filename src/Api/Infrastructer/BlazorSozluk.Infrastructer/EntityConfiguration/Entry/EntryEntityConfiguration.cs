@@ -33,3 +33,5 @@ public class EntryEntityConfiguration : BaseEntityConfiguration<Api.Domain.Model
 
     }
 }
+
+

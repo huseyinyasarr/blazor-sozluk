@@ -33,7 +33,7 @@ public static class QueueFactory
 
     public static EventingBasicConsumer CreateBasicConsumer()
     {
-        var factory = new ConnectionFactory() { HostName = SozlukConstants.RabbitMQHost };
+        var factory = new ConnectionFactory() { HostName = SozlukConstants.RabbitMQHost, Port = 5672 };
         var connection = factory.CreateConnection();
         var channel = connection.CreateModel();
 
