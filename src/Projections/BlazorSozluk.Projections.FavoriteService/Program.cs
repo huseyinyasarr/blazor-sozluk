@@ -1,3 +1,5 @@
+
+
 using BlazorSozluk.Projections.FavoriteService;
 
 var builder = Host.CreateApplicationBuilder(args);
