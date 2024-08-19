@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Clients\BlazorWeb\BlazorSozluk.WebApp\BlazorSozluk.WebApp.csproj" />
     <ProjectReference Include="..\..\Common\BlazorSozluk.Common\BlazorSozluk.Common.csproj" />
   </ItemGroup>
 </Project>
